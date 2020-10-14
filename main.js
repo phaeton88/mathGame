@@ -13,12 +13,7 @@ var generateQuestionAnswer = function () {
   num2 = getRandomInt(1, 11);
   answer = num1 + num2;
   $('h1').html(num1 + '+' + num2);
-  console.log(num1);
-  console.log(num2);
-  console.log(answer);
 };
-
-generateQuestionAnswer();
 
 $('input').keyup(function () {
   if ($('input').val() == answer) {
@@ -27,4 +22,34 @@ $('input').keyup(function () {
     $('input').val('');
     generateQuestionAnswer();
   }
+});
+
+var seconds = 10;
+var timer = null;
+var startTimer = function () {
+  if (!timer) {
+    timer = setInterval(function () {
+      seconds--;
+      $('.countdown').html(seconds);
+      if (seconds === 0) {
+        stopTimer();
+        $('h1').html('Game Over. Press start to play again');
+      }
+    }, 1000);
+  }
+};
+
+var stopTimer = function () {
+  window.clearInterval(timer);
+  timer = null;
+
+};
+
+$('.btn-danger').click(function () {
+  seconds = 10;
+  score = 0;
+  $('.countdown').html('10');
+  $('.showScore').html(score);
+  startTimer();
+  generateQuestionAnswer();
 });

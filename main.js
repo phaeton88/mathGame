@@ -1,5 +1,6 @@
 var answer;
 var score = 0;
+var seconds = 10;
 var generateQuestionAnswer = function () {
   var num1 = 0;
   var num2 = 0;
@@ -18,13 +19,13 @@ var generateQuestionAnswer = function () {
 $('input').keyup(function () {
   if ($('input').val() == answer) {
     score++;
+    seconds++;
     $('.showScore').html(score);
     $('input').val('');
     generateQuestionAnswer();
   }
 });
 
-var seconds = 10;
 var timer = null;
 var startTimer = function () {
   if (!timer) {
@@ -32,6 +33,7 @@ var startTimer = function () {
       seconds--;
       $('.countdown').html(seconds);
       if (seconds === 0) {
+        $('input').attr('disabled', 'disabled');
         stopTimer();
         $('h1').html('Game Over. Press start to play again');
       }
@@ -42,12 +44,12 @@ var startTimer = function () {
 var stopTimer = function () {
   window.clearInterval(timer);
   timer = null;
-
 };
 
 $('.btn-danger').click(function () {
   seconds = 10;
   score = 0;
+  $('input').removeAttr('disabled');
   $('.countdown').html('10');
   $('.showScore').html(score);
   startTimer();

@@ -1,5 +1,6 @@
 var answer;
 var score = 0;
+var hiScore = 0;
 var seconds = 10;
 var generateQuestionAnswer = function () {
   var num1 = 0;
@@ -35,6 +36,7 @@ var startTimer = function () {
       if (seconds === 0) {
         $('input').attr('disabled', 'disabled');
         stopTimer();
+        updateHighScore();
         $('h1').html('Game Over. Press start to play again');
       }
     }, 1000);
@@ -55,3 +57,10 @@ $('.btn-danger').click(function () {
   startTimer();
   generateQuestionAnswer();
 });
+
+var updateHighScore = function () {
+  if (hiScore <= score) {
+    hiScore = score;
+    $('.highScore').html(hiScore);
+  }
+};
